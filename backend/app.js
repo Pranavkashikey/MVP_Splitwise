@@ -5,7 +5,10 @@ app.use(express.json());
 const User = require("./models/user");
 const Expense = require("./models/expense");
 const Balance = require("./models/balance");
+const userRoutes = require("./routes/userRoutes");
 
+
+app.use("/users",userRoutes);
 app.get("/", (req,res)=>{
     res.send("Splitwise Backend Running");
 });
