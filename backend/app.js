@@ -6,9 +6,10 @@ const User = require("./models/user");
 const Expense = require("./models/expense");
 const Balance = require("./models/balance");
 const userRoutes = require("./routes/userRoutes");
-
+const expenseRoutes = require("./routes/expenseRoutes");
 
 app.use("/users",userRoutes);
+app.use("/expenses",expenseRoutes);
 app.get("/", (req,res)=>{
     res.send("Splitwise Backend Running");
 });
