@@ -8,7 +8,7 @@ const Balance = require("./models/balance");
 const userRoutes = require("./routes/userRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const balanceRoutes = require("./routes/balanceRoutes");
-
+require("./cron/monthlyReport");
 app.use("/users",userRoutes);
 app.use("/expenses",expenseRoutes);
 

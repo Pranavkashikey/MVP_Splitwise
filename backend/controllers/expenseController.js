@@ -56,6 +56,63 @@ exports.addExpense = async (req, res) => {
 
 };
 
+exports.getExpenses = async (req,res)=>{
+
+try{
+
+const expenses = await Expense.findAll()
+
+res.json(expenses)
+
+}catch(error){
+
+res.status(500).json({error:error.message})
+
+}
+
+}
+
+exports.updateExpense = async (req,res)=>{
+
+const id = req.params.id
+const {name,value,currency} = req.body
+
+try{
+
+await Expense.update(
+{name,value,currency},
+{where:{id}}
+)
+
+res.json({message:"Expense updated successfully"})
+
+}catch(error){
+
+res.status(500).json({error:error.message})
+
+}
+
+}
+
+exports.deleteExpense = async (req,res)=>{
+
+const id = req.params.id
+
+try{
+
+await Expense.destroy({
+where:{id}
+})
+
+res.json({message:"Expense deleted successfully"})
+
+}catch(error){
+
+res.status(500).json({error:error.message})
+
+}
+
+}
 exports.getActivity = async (req, res) => {
 
   const { start, end } = req.query;
