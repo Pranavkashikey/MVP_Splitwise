@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Expense = require("../models/expense");
 const ExpenseMember = require("../models/expenseMember");
 const Balance = require("../models/balance");
@@ -6,8 +7,8 @@ exports.addExpense = async (req, res) => {
 
   const { name, value, currency, members } = req.body;
   const created_by = req.body.userId;
- console.log(members);
-  console.log(created_by);
+    console.log(members);
+    console.log(created_by);
   try {
 
     const expense = await Expense.create({
@@ -19,7 +20,7 @@ exports.addExpense = async (req, res) => {
     });
 
     const share = value / members.length;
- console.log(share);
+    console.log(share);
     for (let member of members) {
 
      
@@ -46,6 +47,30 @@ exports.addExpense = async (req, res) => {
       message: "Expense created successfully",
       expense
     });
+
+  } catch (error) {
+
+    res.status(500).json({ error: error.message });
+
+  }
+
+};
+
+exports.getActivity = async (req, res) => {
+
+  const { start, end } = req.query;
+
+  try {
+
+    const expenses = await Expense.findAll({
+      where: {
+        date: {
+          [Op.between]: [start, end]
+        }
+      }
+    });
+
+    res.json(expenses);
 
   } catch (error) {
 
